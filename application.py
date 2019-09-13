@@ -11,11 +11,15 @@ class Application:
             self.wd = webdriver.Ie()
         else:
             raise ValueError("Unrecognized browser %s" % browser)
-        self.wd.implicitly_wait(5)
+        self.wd.implicitly_wait(10)
 
-    def open_home_page(self):
+    def open_user_login_page(self):
         wd = self.wd
         wd.get("http://localhost/litecart")
+
+    def open_admin_login_page(self):
+        wd = self.wd
+        wd.get("http://localhost/litecart/admin/login.php")
 
     def destroy(self):
         self.wd.quit()
