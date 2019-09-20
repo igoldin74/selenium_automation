@@ -10,3 +10,4 @@ def test_stickers_present(app):
     elements = app.wd.find_elements_by_css_selector('[class^=product]')
     for el in elements:
         assert EC.presence_of_element_located((By.CSS_SELECTOR, "[class^=sticker]"))
+        assert len(el.find_elements_by_css_selector("[class^=sticker]")) == 1
