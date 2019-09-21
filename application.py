@@ -27,3 +27,10 @@ class Application:
 
     def destroy(self):
         self.wd.quit()
+
+    def admin_login(self, user, password):
+        wd = self.wd
+        wd.find_element_by_css_selector("[type='text']").clear()
+        wd.find_element_by_css_selector("[type='text']").send_keys(user)
+        wd.find_element_by_css_selector("[type='password']").send_keys(password)
+        wd.find_element_by_name("login").click()
