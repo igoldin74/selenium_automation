@@ -1,7 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
+
 
 class Application:
     def __init__(self, browser):
@@ -33,4 +32,10 @@ class Application:
         wd.find_element_by_css_selector("[type='text']").clear()
         wd.find_element_by_css_selector("[type='text']").send_keys(user)
         wd.find_element_by_css_selector("[type='password']").send_keys(password)
+        wd.find_element_by_name("login").click()
+
+    def user_login(self, email, password):
+        wd = self.wd
+        wd.find_element_by_name("email").send_keys(email)
+        wd.find_element_by_name("password").send_keys(password)
         wd.find_element_by_name("login").click()
