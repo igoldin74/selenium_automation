@@ -8,7 +8,7 @@ def test_add_new_product_to_cat(app):
     app.admin_login(user='admin', password='admin')
     app.wd.find_elements_by_css_selector('#app-')[1].click()
     item_list = app.wd.find_elements_by_css_selector('.row')
-    app.wd.find_element_by_css_selector('#content div:nth-child(2) a:nth-child(2)').click()
+    app.wd.find_elements_by_css_selector('.button')[1].click()
     tabs = app.wd.find_elements_by_css_selector('#content li a')
     app.wd.find_element_by_css_selector('label:nth-child(3) input[value="1"]').click()
     app.wd.find_element_by_name('name[en]').send_keys("test_product")
