@@ -2,6 +2,7 @@
 
 def test_all_elements_clickable_ver_1(app):  # using taditional loop 
     app.open_admin_login_page()
+    app.admin_login(user="admin",password="password" )
     app.wd.find_element_by_css_selector("[type='text']").clear()
     app.wd.find_element_by_css_selector("[type='text']").send_keys("admin")
     app.wd.find_element_by_css_selector("[type='password']").send_keys("admin")
