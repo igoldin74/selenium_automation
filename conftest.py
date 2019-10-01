@@ -9,7 +9,7 @@ fixture = None
 @pytest.fixture
 def app():
     global fixture
-    browser = "firefox"
+    browser = "chrome"
     if fixture is None or fixture.is_not_valid():
         fixture = Application(browser=browser)
     return fixture

@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
-
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 class Application:
     def __init__(self, browser):
@@ -19,6 +20,17 @@ class Application:
     def open_user_login_page(self):
         wd = self.wd
         wd.get("http://localhost/litecart")
+
+    def clear_cart(self):
+        item_count = int(self.wd.find_element_by_css_selector('#cart .content .quantity').get_attribute('textContent'))
+        self.wd.find_element_by_css_selector('#cart .content .quantity').click()
+        for i in range(item_count):
+            wait = WebDriverWait(self.wd, 2)
+            items_in_table = self.wd.find_elements_by_css_selector('td.item')
+            element = wait.until(EC.presence_of_element_located((By.NAME, 'remove_cart_item')))
+            element.click()
+            wait.until(EC.staleness_of(items_in_table[i-2]) or not
+                       EC.presence_of_element_located((By.CSS_SELECTOR, '#order-confirmation-wrapper')))
 
     def open_admin_login_page(self):
         wd = self.wd
