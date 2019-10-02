@@ -3,6 +3,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+
 class Application:
     def __init__(self, browser):
         if browser == 'firefox':
@@ -14,8 +15,8 @@ class Application:
         else:
             raise ValueError("Unrecognized browser %s" % browser)
         self.wd.implicitly_wait(5)
-        self.wait = WebDriverWait(self.wd, 10)  # usage ex.: element = wait.until(EC.presence_of_element_located((By.NAME, "q")))
-
+        self.wait = WebDriverWait(self.wd,
+                                  10)  # usage ex.: element = wait.until(EC.presence_of_element_located((By.NAME, "q")))
 
     def open_user_login_page(self):
         wd = self.wd
@@ -29,8 +30,9 @@ class Application:
             items_in_table = self.wd.find_elements_by_css_selector('td.item')
             element = wait.until(EC.presence_of_element_located((By.NAME, 'remove_cart_item')))
             element.click()
-            wait.until(EC.staleness_of(items_in_table[i-2]) or not
-                       EC.presence_of_element_located((By.CSS_SELECTOR, '#order-confirmation-wrapper')))
+            for r in range(len(items_in_table)):
+                wait.until(EC.staleness_of(items_in_table[r]) or not
+                EC.presence_of_element_located((By.CSS_SELECTOR, '#order-confirmation-wrapper')))
 
     def open_admin_login_page(self):
         wd = self.wd
