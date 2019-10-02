@@ -23,16 +23,13 @@ class Application:
         wd.get("http://localhost/litecart")
 
     def clear_cart(self):
-        item_count = int(self.wd.find_element_by_css_selector('#cart .content .quantity').get_attribute('textContent'))
+        wait = WebDriverWait(self.wd, 2)
         self.wd.find_element_by_css_selector('#cart .content .quantity').click()
-        for i in range(item_count):
-            wait = WebDriverWait(self.wd, 2)
-            items_in_table = self.wd.find_elements_by_css_selector('td.item')
+        items_in_table = self.wd.find_elements_by_css_selector('td.item')
+        for i in range(len(items_in_table)):
             element = wait.until(EC.presence_of_element_located((By.NAME, 'remove_cart_item')))
             element.click()
-            for r in range(len(items_in_table)):
-                wait.until(EC.staleness_of(items_in_table[r]) or not
-                EC.presence_of_element_located((By.CSS_SELECTOR, '#order-confirmation-wrapper')))
+            wait.until(EC.staleness_of(items_in_table[i]))
 
     def open_admin_login_page(self):
         wd = self.wd
