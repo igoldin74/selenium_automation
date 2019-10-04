@@ -35,6 +35,15 @@ class Application:
         wd = self.wd
         wd.get("http://localhost/litecart/admin/login.php")
 
+    def get_new_window_id(self, original_windows):
+        wd = self.wd
+        new_windows = set(wd.window_handles)
+        diff = list(set(new_windows) - set(original_windows))
+        if len(diff) == 1:
+            return diff[0]
+        else:
+            return False
+
     def destroy(self):
         self.wd.quit()
 
