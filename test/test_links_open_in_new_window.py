@@ -1,8 +1,5 @@
-from random import randrange
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-
+from helpers.get_new_window_handler import GetWindowHandler
 
 def test_edit_link_open_in_new_window(app):
     active_window = app.wd.current_window_handle
@@ -17,7 +14,9 @@ def test_edit_link_open_in_new_window(app):
     for i, ext_links in enumerate(ext_links):
         ext_links = app.wd.find_elements_by_css_selector('#content tbody tr td a i')
         ext_links[i].click()
-        new_window_id = wait.until(app.get_new_window_id(old_windows))
-        app.wd.switch_to.window(new_window_id)
-        app.wd.close(new_window_id)
+        # passing anonymous lambda function:
+        # new_window_id = wait.until(lambda d: app.get_new_window_id(old_windows))
+        new_window_id = wait.until(GetWindowHandler(old_windows))  # using helper class
+        app.wd.switch_to_window(new_window_id)
+        app.wd.close()
         app.wd.switch_to_window(active_window)
