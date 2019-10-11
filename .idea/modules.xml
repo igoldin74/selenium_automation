@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../python_for_testers/.idea/python_for_testers.iml" filepath="$PROJECT_DIR$/../python_for_testers/.idea/python_for_testers.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../selenium-training-po/.idea/selenium-training-po.iml" filepath="$PROJECT_DIR$/../selenium-training-po/.idea/selenium-training-po.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/selenium_automation.iml" filepath="$PROJECT_DIR$/.idea/selenium_automation.iml" />
     </modules>
   </component>

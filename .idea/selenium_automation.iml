@@ -7,6 +7,7 @@
     <orderEntry type="jdk" jdkName="Python 3.7 (selenium_automation)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="python_for_testers" />
+    <orderEntry type="module" module-name="selenium-training-po" />
   </component>
   <component name="PackageRequirementsSettings">
     <option name="requirementsPath" value="" />

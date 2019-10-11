@@ -1,6 +1,4 @@
 import pytest
-import json
-import os.path
 from application import Application
 
 

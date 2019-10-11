@@ -2,7 +2,9 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-
+from helpers.main_page import MainPage
+from helpers.item_page import ItemPage
+from random import randrange
 
 class Application:
     def __init__(self, browser):
@@ -15,8 +17,9 @@ class Application:
         else:
             raise ValueError("Unrecognized browser %s" % browser)
         self.wd.implicitly_wait(5)
-        self.wait = WebDriverWait(self.wd,
-                                  10)  # usage ex.: element = wait.until(EC.presence_of_element_located((By.NAME, "q")))
+        self.wait = WebDriverWait(self.wd, 5)  # usage ex.: element = wait.until(EC.presence_of_element_located((By.NAME, "q")))
+        self.main_page = MainPage(self.wd)
+        self.item_page = ItemPage(self.wd)
 
     def open_user_login_page(self):
         wd = self.wd
@@ -59,3 +62,20 @@ class Application:
         wd.find_element_by_name("email").send_keys(email)
         wd.find_element_by_name("password").send_keys(password)
         wd.find_element_by_name("login").click()
+
+    def open_random_item_page(self):
+        items = self.main_page.items_on_main_page()
+        items[randrange(len(items))].click()
+        return self
+
+    def add_item_to_cart(self, qty, size_idx):
+        for i in range(qty):
+            self.open_user_login_page()
+            self.open_random_item_page()
+            self.item_page.select_size(size_idx)
+            self.item_page.click_add_to_cart_button()
+            self.wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, '#cart .content .quantity'), str(i + 1)))
+
+    def cart_item_count(self):
+        return int(self.item_page.cart().get_attribute('textContent'))
+
